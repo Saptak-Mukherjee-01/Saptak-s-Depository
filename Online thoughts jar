@@ -1,0 +1,61 @@
+instruction="""
+Instructions:
+(1) You can see only one random thoughts a day.
+(2) The thought you will view will be randomly chosen.
+(3)You can add as much thought as you want.
+(4) Viewing thought before adding will make error.
+"""
+print(instruction)
+print()
+import datetime
+import random
+open("Date.txt","a").close()
+open("mark.txt","a").close()
+today=datetime.datetime.now()
+day=today.day
+month=today.month
+year=today.year
+day=f"{day:02d}"
+month=f"{month:02d}"
+date=f"{day}/{month}/{year}"
+n=int(input("Enter 1 to add thoughts and any other number to ask for random thoughts:"))
+if n!=1:
+    def last_lines(file_path):
+        with open(file_path,"r") as file:
+            lines=file.readlines()
+            if lines:
+                return lines[-1].strip()
+            else:
+                return 0    
+    if last_lines("Date.txt")!=date:
+        with open ("mark.txt","r") as g:
+            lines=g.readlines()
+        n=len(lines)
+        z=random.randint(1,n)
+        with open("thought_jar"+str(z)+".txt", "r") as h:
+            contents = h.read()
+            print(contents)
+        with open("Date.txt","a") as f:
+            f.write(date+"\n")      
+    else:
+        print("Daily chance of seeing random thoughts is over!")
+if n==1:
+    with open ("mark.txt","r") as g:
+        lines=g.readlines()
+    n=len(lines)+1
+    open("thought_jar"+str(n)+".txt","a").close()
+    print("Write 'stop02' to stop writing.")
+    thought=input("Enter your thoughts:")
+    q=0
+    if thought.strip().lower()!="stop02":
+        q=1
+        with open("mark.txt","a") as m:
+            m.write("✓"+"\n")
+        while thought.strip().lower()!="stop02":
+            with open("thought_jar"+str(n)+".txt","a") as t:
+                t.write(thought+"\n")
+            thought=input("Enter your thoughts:")
+    if q==1:        
+        print("Thoughts added successfully.")
+    else:
+        print("No thought added.")
