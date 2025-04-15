@@ -1,0 +1,99 @@
+import datetime
+today = datetime.datetime.now()
+hour = today.hour
+hour_updated = int(hour)
+def wishing(hour_updated):
+    if hour_updated <= 5:
+        return "night"
+    elif hour_updated <= 12:
+        return "morning"
+    elif hour_updated <= 13:
+        return "noon"
+    elif hour_updated <= 17:
+        return "afternoon"
+    elif hour_updated <= 20:
+        return "evening"
+    else:
+        return "night"
+name = "username.txt"
+open("AI_question.txt", "a").close()
+open("AI_answer.txt", "a").close()
+try:
+    with open("username.txt", "r") as x:
+        data = x.read().strip()
+        if data:
+            print(f"Hi {data}! Welcome again! I am here to assist you always.")
+        else:
+            raise ValueError
+except (FileNotFoundError, ValueError):
+    print("Please input your name. This will help me personalize your experience.")
+    naming = str(input("Enter your name:"))
+    v = int(input("Enter 1 to confirm your name and any other integer to re-enter:"))
+    while v != 1:
+        naming = str(input("Enter your name:"))
+        v = int(input("Enter 1 to confirm your name and any other integer to re-enter the name:"))
+    with open(name, "w") as q:
+        q.write(naming)
+        data = naming
+        print("Thank you for your co-operation.")
+        print("I am your personal assistant. Feel free to make me assist.")
+import difflib
+file1 = "AI_question.txt"
+file2 = "AI_answer.txt"
+word = str(input("Enter your question:"))
+word_lower = word.lower()
+f1 = open(file1, "r")
+questions = [line.strip() for line in f1.readlines()]
+questions_lower = [q.lower() for q in questions]
+f1.close()
+match = difflib.get_close_matches(word_lower, questions_lower, n=1, cutoff=0.6)
+
+if not match:
+    print("Sorry, I don't know the answer of the question.")
+    n = int(input("If you want to answer the question with suitable answer, enter 1:"))
+    if n == 1:
+        print("Use '\\l' for new line in answers.")
+        answer = str(input("Enter your answer:"))
+        x = int(input("Enter 1 to confirm and any other integer to re-enter the answer:"))
+        while x != 1:
+            answer = str(input("Enter your answer:"))
+            x = int(input("Enter 1 to confirm and any other integer to re-enter the answer:"))
+        f2 = open(file2, "a")
+        f2.write(answer + "\n")
+        f2.close()
+        f1 = open(file1, "a")
+        f1.write(word.strip() + "\n")
+        f1.close()
+elif match:
+    matched_line = match[0]
+    line_number = questions_lower.index(matched_line)
+    f2 = open(file2, "r")
+    for i in range(0, line_number):
+        f2.readline()
+    answer = f2.readline()
+    f2.close()
+    formatted = answer.replace("\\l", "\n")
+    print("Answer:\n" + formatted)
+    if word_lower.strip() != matched_line:
+        print("Are you satisfied with the answer?")
+        m = int(input("Enter 1 if you are satisfied and any other integer if not:"))
+        if m != 1:
+            print("I am a semi AI which is still learning! Sorry if I return wrong answer unintentionally.")
+            n = int(input("If you want to answer the question with suitable answer, enter 1:"))
+            if n == 1:
+                print("Use '\\l' for new line in answers.")
+                answer = str(input("Enter your answer:"))
+                x = int(input("Enter 1 to confirm and any other integer to re-enter the answer:"))
+                while x != 1:
+                    answer = str(input("Enter your answer:"))
+                    x = int(input("Enter 1 to confirm and any other integer to re-enter the answer:"))
+                f2 = open(file2, "a")
+                f2.write(answer + "\n")
+                f2.close()
+                f1 = open(file1, "a")
+                f1.write(word.strip() + "\n")
+                f1.close()
+print(f"Thank you for using me, {data}.")
+print("Have a great time!")
+print("Good", wishing(hour_updated), "!")
+    
