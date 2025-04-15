@@ -54,7 +54,7 @@ if n==1:
         while thought.strip().lower()!="stop02":
             with open("thought_jar"+str(n)+".txt","a") as t:
                 t.write(thought+"\n")
-            thought=input("Enter your thoughts:")
+            thought=input()
     if q==1:        
         print("Thoughts added successfully.")
     else:
