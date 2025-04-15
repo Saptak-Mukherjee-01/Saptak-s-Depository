@@ -1,0 +1,39 @@
+#Random Royale
+import random
+print("Note:Number of players must be positive.")
+print()
+n = int(input("Enter the number of players: "))
+i = 0
+x = []
+z = []
+for i in range(0, n):
+    name = input("Enter the name of the player: ")
+    x.append(name)
+    z.append(name)
+random.shuffle(z)
+print("Shuffled names:", z)
+y = []
+for i in range(0, n):
+    numeric = 0
+    y.append(numeric)
+m = n  
+n = int(input("Enter 1 to continue or any other integer to exit: "))
+if n == 1:
+    while n == 1:
+        for i in range(0, m):
+            new_numeric = random.randint(1, m)
+            y[i] = y[i] + new_numeric
+            print("The score of", z[i], ":", y[i])
+        n = int(input("Enter 1 to continue and any other integer to exit: "))
+    while n != 1:
+        print("Winner:")
+        temp = y.copy()
+        temp.sort(reverse=True)
+        q = 0
+        for i in range(0, m):
+            if temp[0] == y[i]:
+                q = i
+                break
+        print(z[q])
+        break
+        
