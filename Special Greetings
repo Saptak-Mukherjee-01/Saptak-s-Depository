@@ -1,0 +1,25 @@
+import datetime
+import time
+today=datetime.datetime.now()
+day=today.day
+month=today.month
+day=f"{day:02d}"
+month=f"{month:02d}"
+special_day=20#change this as needed.
+special_month=4#change this as needed.
+#day and month chosen for reference
+special_day=f"{special_day:02d}"
+special_month=f"{special_month:02d}"
+if special_month==month and special_day==day:
+    print("loading...")
+    time.sleep(2)
+    print("Are you ready?")
+    time.sleep(2)
+    print("Excited??")
+    time.sleep(2)
+    print("Processing...")
+    time.sleep(2)
+    print("Now have a look!")
+    time.sleep(4)
+    print("Happy birthday, my love! Have a great day.")
+    #print("User_statement")
